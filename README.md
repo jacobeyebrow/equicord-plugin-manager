@@ -32,19 +32,15 @@ Post messages in the configured channel. The manager parses:
 - Lines starting with `PLUGIN {...}`
 - Bare supported clone URLs (GitHub, GitLab, Codeberg, nin0, etc.)
 
-## Test plugin (`PluginManagerTestPlugin`)
+## Test plugin (one-click install URL)
 
-This repository includes a **minimal** second plugin under [`PluginManagerTestPlugin/`](./PluginManagerTestPlugin/).
+The installer only sees **`index.tsx` at the repo root**, so the smoke-test plugin lives in its **own** repository (not the `PluginManagerTestPlugin/` subfolder here).
 
-**Important:** The installer clones the **repo root** into `src/userplugins/<repo-name>/`. It does **not** install a random subfolder by URL. So you **cannot** one-click install *only* `PluginManagerTestPlugin` from this same repository using a normal GitHub HTTPS link.
+**Paste this in the manager channel or in a JSON catalog** (no `/tree/…` path):
 
-Use either:
+`https://github.com/jacobeyebrow/equicord-plugin-manager-test-plugin`
 
-1. **Manual test** — Copy the `PluginManagerTestPlugin` folder into your `src/userplugins/` tree (next to other plugins), rebuild/restart, enable **PluginManagerTestPlugin**, then open **Equicord toolbox → “PM install test”** and confirm the toast.
-
-2. **One-click test** — Publish `PluginManagerTestPlugin` as **its own** GitHub repository with `index.tsx` at the **root** (same layout as this repo, but only those files), then install with that repo’s HTTPS URL.
-
-To verify the **manager** flow end-to-end, install this repo first (main plugin), then use a catalog entry URL pointing at a **small dedicated test repo** you control.
+A copy of the same source also lives under [`PluginManagerTestPlugin/`](./PluginManagerTestPlugin/) in **this** repo for reference or manual copy into `src/userplugins/`.
 
 ## License
 
