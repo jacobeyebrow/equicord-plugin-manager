@@ -10,6 +10,7 @@ import ErrorBoundary from "@components/ErrorBoundary";
 import { Heading } from "@components/Heading";
 import { Notice } from "@components/Notice";
 import definePlugin, { OptionType } from "@utils/types";
+import { relaunch } from "@utils/native";
 import { Message } from "@vencord/discord-types";
 import { CLONE_LINK_REGEX, showInstallFinishedAlert } from "@equicordplugins/userpluginInstaller.dev/misc/constants";
 import { findByPropsLazy, findCssClassesLazy } from "@webpack";
@@ -509,6 +510,21 @@ function PluginManagerOverlay({ channelId }: { channelId: string }) {
                                     >
                                         UserPlugins settings
                                     </Button>
+                                    <Button
+                                        look={Button.Looks.OUTLINED}
+                                        className="vc-cpm-btn-secondary"
+                                        onClick={() => {
+                                            Alerts.show({
+                                                title: "Restart client",
+                                                body: "Restart Discord to apply newly installed userplugins and settings (enable plugins in UserPlugins first if needed).",
+                                                confirmText: "Restart",
+                                                cancelText: "Cancel",
+                                                onConfirm: () => relaunch()
+                                            });
+                                        }}
+                                    >
+                                        Restart client
+                                    </Button>
                                 </div>
                             </div>
                         </div>
@@ -628,17 +644,6 @@ function PluginManagerOverlay({ channelId }: { channelId: string }) {
                             </Button>
                         </div>
                     </section>
-
-                    <footer className="vc-cpm-hint">
-                        <div className="vc-cpm-hint-bar" />
-                        <p className="vc-cpm-hint-lead">
-                            Hides automatically while Discord / Vencord <strong>settings</strong> or <strong>dialogs</strong> are open. Example
-                            one-message catalog:
-                        </p>
-                        <pre className="vc-cpm-hint-code">{`{"plugins":[
-  {"title":"Sample repo","description":"Swap for a repo you trust","url":"https://github.com/OWNER/REPO"}
-]}`}</pre>
-                    </footer>
                 </div>
             </div>
         </div>,
